@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All coins</title>
+</head>
+<body>
+<div th:each="coin : ${coins}">
+    <a th:href="@{/coins/{symbol}(symbol=${coin.getSymbol()})}"
+       th:text="${coin.getSymbol()}">coin</a>
+</div>
+
+<br><br>
+<a href="/">go to main page</a>
+</body>
+</html>

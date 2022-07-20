@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p th:text="${'Symbol: ' + coin.getSymbol()}">VALUE</p>
+<p th:text="${'Price: ' + coin.getPrice()}">VALUE</p>
+<p th:text="${'Coin id: ' + coin.getCoinId()}">VALUE</p>
+
+<br><br>
+<a href="/">go to main page</a>
+</body>
+</html>

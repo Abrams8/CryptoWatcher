@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show</title>
+</head>
+<body>
+<p th:text="${'Name: ' + user.getName()}">VALUE</p>
+<p th:text="${'Symbol: ' + user.getSymbol()}">VALUE</p>
+<p th:text="${'User ID: ' + user.getId()}">VALUE</p>
+<p th:text="${'Register price: ' + user.getRegisterPrice()}">VALUE</p>
+
+<form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+    <input type="submit" value="Delete"/>
+</form>
+
+<br><br>
+<a href="/">go to main page</a>
+</body>
+</html>
