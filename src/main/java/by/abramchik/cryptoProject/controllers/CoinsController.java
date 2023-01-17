@@ -2,10 +2,12 @@ package by.abramchik.cryptoProject.controllers;
 
 import by.abramchik.cryptoProject.dao.CoinDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 
 @Controller
 @RequestMapping("/coins")
@@ -35,9 +37,4 @@ public class CoinsController {
         return "coins/show";
     }
 
-    @GetMapping("/updatePrice")
-    public String updatePrice() {
-        coinDAO.updatePrice();
-        return "coins/index";
-    }
 }

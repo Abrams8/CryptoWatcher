@@ -1,5 +1,6 @@
 package by.abramchik.cryptoProject.config;
 
+import by.abramchik.cryptoProject.dao.CoinDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -63,6 +64,7 @@ public class SpringConfig implements WebMvcConfigurer {
 
         return dataSource;
     }
+
 
     @Bean
     public JdbcTemplate jdbcTemplate() {

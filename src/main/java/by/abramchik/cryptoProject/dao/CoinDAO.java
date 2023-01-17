@@ -42,33 +42,32 @@ public class CoinDAO {
                 .stream().findAny().orElse(null);
     }
 
+
     public void updatePrice() {
+            try {
 
-        try {
+                CloseableHttpClient httpclient = HttpClients.createDefault();
 
-            // Thread.sleep(60 * 1000);
+                HttpGet httpget = new HttpGet(URL);
 
-            CloseableHttpClient httpclient = HttpClients.createDefault();
+                HttpResponse httpresponse = httpclient.execute(httpget);
 
-            HttpGet httpget = new HttpGet(URL);
+                Scanner sc = new Scanner(httpresponse.getEntity().getContent());
 
-            HttpResponse httpresponse = httpclient.execute(httpget);
+                String data = sc.nextLine();
 
-            Scanner sc = new Scanner(httpresponse.getEntity().getContent());
+                Gson gson = new Gson();
+                Coin[] coin = gson.fromJson(data, Coin[].class);
 
-            String data = sc.nextLine();
-
-            Gson gson = new Gson();
-            Coin[] coin = gson.fromJson(data, Coin[].class);
-
-            for (int i = 0; i < coin.length; i++) {
-                jdbcTemplate.update("UPDATE coins SET price =? WHERE symbol =?", coin[i].getPrice(), coin[i].getSymbol());
+                for (int i = 0; i < coin.length; i++) {
+                    jdbcTemplate.update("UPDATE coins SET price =? WHERE symbol =?", coin[i].getPrice(), coin[i].getSymbol());
+                }
+            } catch (ClientProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
         List<Coin> coins = index();
 
@@ -81,7 +80,8 @@ public class CoinDAO {
             for (int j = 0; j < users.size(); j++) {
                 Double registerPrice = users.get(j).getRegisterPrice();
                 if (actualPrice > registerPrice * 1.01 || actualPrice < registerPrice * 0.99) {
-                    Double result = (actualPrice * 100 / registerPrice) - 100;
+                    // Double result = (actualPrice * 100 / registerPrice) - 100;
+                    String result = String.format("%.3f", ((actualPrice * 100 / registerPrice) - 100));
                     log.warn(symbol + " : " + users.get(j).getName() + " : " + result + "%");
                 }
             }
